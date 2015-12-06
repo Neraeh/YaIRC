@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/quit.png</file>
+        <file>icons/close.png</file>
+        <file>icons/server.png</file>
+        <file>icons/fullscreen.png</file>
+        <file>icons/disconnect.png</file>
+        <file>icons/reconnect.png</file>
+        <file>icons/about.png</file>
+        <file>icons/join_chan.png</file>
+        <file>icons/list_chans.png</file>
+        <file>icons/settings.png</file>
+        <file>icons/yairc.png</file>
+    </qresource>
+</RCC>
