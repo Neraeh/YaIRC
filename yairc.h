@@ -3,6 +3,7 @@
 
 #include "ui_mainwindow.h"
 #include "inputhistory.h"
+#include <QSettings>
 #include <QCloseEvent>
 #include <QErrorMessage>
 #include <QHash>
@@ -70,6 +71,7 @@ private:
     QHash<IrcBuffer*, QTextDocument*> documents;
     QHash<IrcBuffer*, QString> topics;
     InputHistory inputHistory;
+    QSettings* settings;
 };
 
 #endif // YAIRC_H

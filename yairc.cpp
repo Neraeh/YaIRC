@@ -6,6 +6,16 @@ YaIRC::YaIRC(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
     ui->setupUi(this);
     ui->lineEdit->installEventFilter(this);
 
+    settings = new QSettings("TheShayy", "YaIRC", this);
+
+    if (settings->value("fullscreen", false).toBool())
+        this->showFullScreen();
+    else
+        this->setGeometry(settings->value("window", this->geometry()).toRect());
+
+    ui->topic->setEnabled(settings->value("topic", true).toBool());
+    ui->topic->setEnabled(settings->value("userlist", true).toBool());
+
     connection = new IrcConnection(this);
 
     parser = new IrcCommandParser(this);
@@ -66,6 +76,7 @@ YaIRC::YaIRC(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 
     connection->sendCommand(IrcCommand::createJoin("#unobot"));
     connection->open();
+    ui->textEdit->append(IrcMessageFormatter::formatMessage(": YaIRC alpha client initialized"));
 }
 
 YaIRC::~YaIRC()
@@ -105,8 +116,13 @@ void YaIRC::closeEvent(QCloseEvent *event)
         connection->close();
     }
 
-    // TODO: Save window state and restore
+    if (this->isFullScreen())
+        settings->setValue("fullscreen", this->isFullScreen());
+    else
+        settings->setValue("window", this->geometry());
 
+    settings->setValue("topic", ui->topic->isEnabled());
+    settings->setValue("userlist", ui->userList->isEnabled());
 
     event->accept();
 }
